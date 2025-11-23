@@ -16,12 +16,56 @@
             line-height: 1.6;
             color: #333;
             direction: rtl;
+            transition: direction 0.3s ease;
+        }
+
+        body[dir="ltr"] {
+            direction: ltr;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            display: flex;
+            gap: 5px;
+        }
+
+        body[dir="rtl"] .language-switcher {
+            left: auto;
+            right: 20px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .lang-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
 
         /* Header */
@@ -220,6 +264,12 @@
             overflow: hidden;
         }
 
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .product-image::before {
             content: '';
             position: absolute;
@@ -246,6 +296,20 @@
             font-size: 1.1rem;
         }
 
+        /* Banner Images */
+        .banner-images {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .banner-images img {
+            max-width: 500px;
+            height: auto;
+            margin: 10px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
         /* Contact Section */
         .contact {
             padding: 5rem 0;
@@ -266,6 +330,15 @@
             background: rgba(255,255,255,0.1);
             border-radius: 10px;
             backdrop-filter: blur(10px);
+            text-decoration: none;
+            color: white;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
         }
 
         .contact-item i {
@@ -327,6 +400,20 @@
             .contact-info {
                 grid-template-columns: 1fr;
             }
+
+            .language-switcher {
+                top: 70px;
+                left: 10px;
+            }
+
+            body[dir="rtl"] .language-switcher {
+                left: auto;
+                right: 10px;
+            }
+
+            .banner-images img {
+                max-width: 100%;
+            }
         }
 
         /* Hover Effects */
@@ -354,7 +441,14 @@
         }
     </style>
 </head>
-<body>
+<body dir="rtl">
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="ku">کوردی</button>
+        <button class="lang-btn" data-lang="ar">عربي</button>
+        <button class="lang-btn" data-lang="en">English</button>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -362,10 +456,10 @@
                 <div class="logo">Aram Yasin</div>
                 <nav>
                     <ul>
-                        <li><a href="#home">سەرەکی</a></li>
-                        <li><a href="#products">بەرهەمەکان</a></li>
-                        <li><a href="#about">دەربارە</a></li>
-                        <li><a href="#contact">پەیوەندی</a></li>
+                        <li><a href="#home" data-translate="nav_home">سەرەکی</a></li>
+                        <li><a href="#products" data-translate="nav_products">بەرهەمەکان</a></li>
+                        <li><a href="#about" data-translate="nav_about">دەربارە</a></li>
+                        <li><a href="#contact" data-translate="nav_contact">پەیوەندی</a></li>
                     </ul>
                 </nav>
             </div>
@@ -376,9 +470,9 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h1>ئارام ياسين حمد</h1>
-                <p>      شركة ئارام ياسين حمد بو بازرگانى گشتى و بازرگانى جل و به رگى موديل/ تاكه كه سى   </p>
-                <a href="#products" class="btn hover-effect">بەرهەمەکان ببینە</a>
+                <h1 data-translate="hero_title">ئارام ياسين حمد</h1>
+                <p data-translate="hero_subtitle">شركة ئارام ياسين حمد بو بازرگانى گشتى و بازرگانى جل و به رگى موديل/ تاكه كه سى</p>
+                <a href="#products" class="btn hover-effect" data-translate="hero_button">بەرهەمەکان ببینە</a>
             </div>
         </div>
     </section>
@@ -386,39 +480,37 @@
     <!-- Features Section -->
     <section class="features" id="about">
         <div class="container">
-        
-
-            <h2 class="section-title">بۆچی ئێمە هەڵبژێریت؟</h2>
+            <h2 class="section-title" data-translate="features_title">بۆچی ئێمە هەڵبژێریت؟</h2>
             <div class="features-grid">
                 <div class="feature-card hover-effect">
                     <div class="feature-icon">👗</div>
-                    <h3>جۆراوجۆری زۆر</h3>
-                    <p>کۆمەڵێکی گەورە لە جلوبەرگی ئافرەتان بۆ هەموو بۆنە و کاتەکان</p>
+                    <h3 data-translate="feature1_title">جۆراوجۆری زۆر</h3>
+                    <p data-translate="feature1_desc">کۆمەڵێکی گەورە لە جلوبەرگی ئافرەتان بۆ هەموو بۆنە و کاتەکان</p>
                 </div>
                 <div class="feature-card hover-effect">
                     <div class="feature-icon">💎</div>
-                    <h3>کوالیتی بەرز</h3>
-                    <p>هەموو بەرهەمەکانمان لە باشترین جۆری پارچە و دروستکراوە</p>
+                    <h3 data-translate="feature2_title">کوالیتی بەرز</h3>
+                    <p data-translate="feature2_desc">هەموو بەرهەمەکانمان لە باشترین جۆری پارچە و دروستکراوە</p>
                 </div>
                 <div class="feature-card hover-effect">
                     <div class="feature-icon">🚚</div>
-                    <h3>گەیاندنی خێرا</h3>
-                    <p>گەیاندنی خێرا و ئاسان بۆ هەموو شوێنەکانی هەرێمی کوردستان</p>
+                    <h3 data-translate="feature3_title">گەیاندنی خێرا</h3>
+                    <p data-translate="feature3_desc">گەیاندنی خێرا و ئاسان بۆ هەموو شوێنەکانی هەرێمی کوردستان</p>
                 </div>
                 <div class="feature-card hover-effect">
                     <div class="feature-icon">💰</div>
-                    <h3>نرخی گونجاو</h3>
-                    <p>نرخی دادپەروەرانە و گونجاو لەگەڵ کوالیتی بەرز</p>
+                    <h3 data-translate="feature4_title">نرخی گونجاو</h3>
+                    <p data-translate="feature4_desc">نرخی دادپەروەرانە و گونجاو لەگەڵ کوالیتی بەرز</p>
                 </div>
                 <div class="feature-card hover-effect">
                     <div class="feature-icon">👥</div>
-                    <h3>خزمەتگوزاری باش</h3>
-                    <p>تیمێکی شارەزا و ئامادە بۆ یارمەتیدان لە هەر کاتێکدا</p>
+                    <h3 data-translate="feature5_title">خزمەتگوزاری باش</h3>
+                    <p data-translate="feature5_desc">تیمێکی شارەزا و ئامادە بۆ یارمەتیدان لە هەر کاتێکدا</p>
                 </div>
                 <div class="feature-card hover-effect">
                     <div class="feature-icon">⭐</div>
-                    <h3>مۆدی نوێ</h3>
-                    <p>هەمیشە لەگەڵ نوێترین مۆدەکانی جیهان دەبین</p>
+                    <h3 data-translate="feature6_title">مۆدی نوێ</h3>
+                    <p data-translate="feature6_desc">هەمیشە لەگەڵ نوێترین مۆدەکانی جیهان دەبین</p>
                 </div>
             </div>
         </div>
@@ -427,68 +519,71 @@
     <!-- Products Preview -->
     <section class="products-preview" id="products">
         <div class="container">
-             <center>   <img src="./rsm/1212.jpg" height="500px" width="500px" alt="">
-                        <img src="./rsm/12123.jpg" height="500px" width="500px" alt=""></center>
-            <h2 class="section-title">بەرهەمە تایبەتەکانمان</h2>
+            <div class="banner-images">
+                <img src="./rsm/1212.jpg" alt="Banner 1">
+                <img src="./rsm/12123.jpg" alt="Banner 2">
+            </div>
+            <h2 class="section-title" data-translate="products_title">بەرهەمە تایبەتەکانمان</h2>
             <div class="products-grid">
                 <div class="product-card hover-effect">
-                    <div class="product-image"><img src="./rsm/13.jpg" height="300px" width="300px" alt=""></div>
+                    <div class="product-image"><img src="./rsm/13.jpg" alt="Evening Dress"></div>
                     <div class="product-info">
-                        <h4>فستانی ئێوارە</h4>
-                     </div>
+                        <h4 data-translate="product_name">فستانی ئێوارە</h4>
+                    </div>
                 </div>
                 <div class="product-card hover-effect">
-                    <div class="product-image"><img src="./rsm/14.jpg" height="300px" width="300px" alt=""></div>
+                    <div class="product-image"><img src="./rsm/14.jpg" alt="Evening Dress"></div>
                     <div class="product-info">
-                        <h4>فستانی ئێوارە</h4>
-                     </div>
+                        <h4 data-translate="product_name">فستانی ئێوارە</h4>
+                    </div>
                 </div>
-             <div class="product-card hover-effect">
-                    <div class="product-image"><img src="./rsm/15.jpg" height="300px" width="300px" alt=""></div>
+                <div class="product-card hover-effect">
+                    <div class="product-image"><img src="./rsm/15.jpg" alt="Evening Dress"></div>
                     <div class="product-info">
-                        <h4>فستانی ئێوارە</h4>
-                     </div>
+                        <h4 data-translate="product_name">فستانی ئێوارە</h4>
+                    </div>
                 </div>
-             <div class="product-card hover-effect">
-                    <div class="product-image"><img src="./rsm/16.jpg" height="300px" width="300px" alt=""></div>
+                <div class="product-card hover-effect">
+                    <div class="product-image"><img src="./rsm/16.jpg" alt="Evening Dress"></div>
                     <div class="product-info">
-                        <h4>فستانی ئێوارە</h4>
-                     </div>
+                        <h4 data-translate="product_name">فستانی ئێوارە</h4>
+                    </div>
                 </div>
-               <div class="product-card hover-effect">
-                    <div class="product-image"><img src="./rsm/17.jpg" height="300px" width="300px" alt=""></div>
+                <div class="product-card hover-effect">
+                    <div class="product-image"><img src="./rsm/17.jpg" alt="Evening Dress"></div>
                     <div class="product-info">
-                        <h4>فستانی ئێوارە</h4>
-                     </div>
+                        <h4 data-translate="product_name">فستانی ئێوارە</h4>
+                    </div>
                 </div>
-              <div class="product-card hover-effect">
-                    <div class="product-image"><img src="./rsm/18.jpg" height="300px" width="300px" alt=""></div>
+                <div class="product-card hover-effect">
+                    <div class="product-image"><img src="./rsm/18.jpg" alt="Evening Dress"></div>
                     <div class="product-info">
-                        <h4>فستانی ئێوارە</h4>
-                     </div>
+                        <h4 data-translate="product_name">فستانی ئێوارە</h4>
+                    </div>
                 </div>
-                 <div class="product-card hover-effect">
-                    <div class="product-image"><img src="./rsm/19.jpg" height="300px" width="300px" alt=""></div>
+                <div class="product-card hover-effect">
+                    <div class="product-image"><img src="./rsm/19.jpg" alt="Evening Dress"></div>
                     <div class="product-info">
-                        <h4>فستانی ئێوارە</h4>
-                     </div>
+                        <h4 data-translate="product_name">فستانی ئێوارە</h4>
+                    </div>
                 </div>
-                 <div class="product-card hover-effect">
-                    <div class="product-image"><img src="./rsm/20.jpg" height="300px" width="300px" alt=""></div>
+                <div class="product-card hover-effect">
+                    <div class="product-image"><img src="./rsm/20.jpg" alt="Evening Dress"></div>
                     <div class="product-info">
-                        <h4>فستانی ئێوارە</h4>
-                     </div>
+                        <h4 data-translate="product_name">فستانی ئێوارە</h4>
+                    </div>
                 </div>
-                  <div class="product-card hover-effect">
-                    <div class="product-image"><img src="./rsm/21.jpg" height="300px" width="300px" alt=""></div>
+                <div class="product-card hover-effect">
+                    <div class="product-image"><img src="./rsm/21.jpg" alt="Evening Dress"></div>
                     <div class="product-info">
-                        <h4>فستانی ئێوارە</h4>
-                     </div>
+                        <h4 data-translate="product_name">فستانی ئێوارە</h4>
+                    </div>
                 </div>
-                  <div class="product-card hover-effect">
-                    <div class="product-image"><img src="./rsm/22.jpg" height="300px" width="300px" alt=""></div>
+                <div class="product-card hover-effect">
+                    <div class="product-image"><img src="./rsm/22.jpg" alt="Evening Dress"></div>
                     <div class="product-info">
-                     </div>
+                        <h4 data-translate="product_name">فستانی ئێوارە</h4>
+                    </div>
                 </div>
             </div>
         </div>
@@ -497,32 +592,172 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title" style="color: white;">پەیوەندیمان لەگەڵ بکە</h2>
+            <h2 class="section-title" style="color: white;" data-translate="contact_title">پەیوەندیمان لەگەڵ بکە</h2>
             <div class="contact-info">
-               <a href="https://maps.app.goo.gl/fed72SFPnHD4qz7y9?g_st=com.google.maps.preview.copy " target="_blank"> <div class="contact-item hover-effect">
+                <a href="https://share.google/EGi3EQtVc5m7S8mVG" target="_blank" class="contact-item hover-effect">
                     <i>📍</i>
-                    <h4>ناونیشان </h4>
-                    <p>   Iraq, Erbil, bazary Langa    </p> 
-                </div></a> 
-                
+                    <h4 data-translate="contact_address_title">ناونیشان</h4>
+                 <p data-translate="contact_address">Iraq, Erbil, bazary Langa</p> 
+                </a>
                 <div class="contact-item hover-effect">
                     <i>📧</i>
-                    <h4>ئیمەیڵ</h4>
-                    <p>aramyasincompany@gmail.com </p>  
+                    <h4 data-translate="contact_email_title">ئیمەیڵ</h4>
+                    <p>aramyasincompany@gmail.com</p>
                 </div>
                 <div class="contact-item hover-effect">
                     <i>🕐</i>
-                    <h4>کاتی کارکردن</h4>
-                    <p>شەممە - پێنجشەممە: ٩:٠٠ - ٩:٠٠ </p>
+                    <h4 data-translate="contact_hours_title">کاتی کارکردن</h4>
+                    <p data-translate="contact_hours">شەممە - پێنجشەممە: ٩:٠٠ - ٩:٠٠</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
- 
-
     <script>
+        // Translations object
+        const translations = {
+            ku: {
+                nav_home: "سەرەکی",
+                nav_products: "بەرهەمەکان",
+                nav_about: "دەربارە",
+                nav_contact: "پەیوەندی",
+                hero_title: "ئارام ياسين حمد",
+                hero_subtitle: "شركة ئارام ياسين حمد بو بازرگانى گشتى و بازرگانى جل و به رگى موديل/ تاكه كه سى",
+                hero_button: "بەرهەمەکان ببینە",
+                features_title: "بۆچی ئێمە هەڵبژێریت؟",
+                feature1_title: "جۆراوجۆری زۆر",
+                feature1_desc: "کۆمەڵێکی گەورە لە جلوبەرگی ئافرەتان بۆ هەموو بۆنە و کاتەکان",
+                feature2_title: "کوالیتی بەرز",
+                feature2_desc: "هەموو بەرهەمەکانمان لە باشترین جۆری پارچە و دروستکراوە",
+                feature3_title: "گەیاندنی خێرا",
+                feature3_desc: "گەیاندنی خێرا و ئاسان بۆ هەموو شوێنەکانی هەرێمی کوردستان",
+                feature4_title: "نرخی گونجاو",
+                feature4_desc: "نرخی دادپەروەرانە و گونجاو لەگەڵ کوالیتی بەرز",
+                feature5_title: "خزمەتگوزاری باش",
+                feature5_desc: "تیمێکی شارەزا و ئامادە بۆ یارمەتیدان لە هەر کاتێکدا",
+                feature6_title: "مۆدی نوێ",
+                feature6_desc: "هەمیشە لەگەڵ نوێترین مۆدەکانی جیهان دەبین",
+                products_title: "بەرهەمە تایبەتەکانمان",
+                product_name: "فستانی ئێوارە",
+                contact_title: "پەیوەندیمان لەگەڵ بکە",
+                contact_address_title: "ناونیشان",
+                contact_address: "Iraq, Erbil, bazary Langa",
+                contact_email_title: "ئیمەیڵ",
+                contact_hours_title: "کاتی کارکردن",
+                contact_hours: "شەممە - پێنجشەممە: ٩:٠٠ - ٩:٠٠"
+            },
+            ar: {
+                nav_home: "الرئيسية",
+                nav_products: "المنتجات",
+                nav_about: "عن الشركة",
+                nav_contact: "التواصل",
+                hero_title: "آرام ياسين حمد",
+                hero_subtitle: "شركة آرام ياسين حمد للتجارة العامة وتجارة الأزياء النسائية الراقية",
+                hero_button: "تصفح المنتجات",
+                features_title: "لماذا تختارنا؟",
+                feature1_title: "تنوع كبير",
+                feature1_desc: "مجموعة واسعة من الملابس النسائية لجميع المناسبات والأوقات",
+                feature2_title: "جودة عالية",
+                feature2_desc: "جميع منتجاتنا مصنوعة من أفضل أنواع الأقمشة",
+                feature3_title: "توصيل سريع",
+                feature3_desc: "توصيل سريع وسهل لجميع مناطق إقليم كردستان",
+                feature4_title: "أسعار مناسبة",
+                feature4_desc: "أسعار عادلة ومناسبة مع جودة عالية",
+                feature5_title: "خدمة ممتازة",
+                feature5_desc: "فريق محترف جاهز للمساعدة في أي وقت",
+                feature6_title: "أحدث الموديلات",
+                feature6_desc: "نواكب دائماً أحدث صيحات الموضة العالمية",
+                products_title: "منتجاتنا المميزة",
+                product_name: "فستان سهرة",
+                contact_title: "تواصل معنا",
+                contact_address_title: "العنوان",
+                contact_address: "العراق، أربيل، بازار لنگة",
+                contact_email_title: "البريد الإلكتروني",
+                contact_hours_title: "ساعات العمل",
+                contact_hours: "السبت - الخميس: ٩:٠٠ صباحاً - ٩:٠٠ مساءً"
+            },
+            en: {
+                nav_home: "Home",
+                nav_products: "Products",
+                nav_about: "About",
+                nav_contact: "Contact",
+                hero_title: "Aram Yasin Hamad",
+                hero_subtitle: "Aram Yasin Hamad Company for General Trade and Fashion Clothing - Wholesale",
+                hero_button: "View Products",
+                features_title: "Why Choose Us?",
+                feature1_title: "Wide Variety",
+                feature1_desc: "A large collection of women's clothing for all occasions and times",
+                feature2_title: "High Quality",
+                feature2_desc: "All our products are made from the finest types of fabrics",
+                feature3_title: "Fast Delivery",
+                feature3_desc: "Fast and easy delivery to all areas of Kurdistan Region",
+                feature4_title: "Fair Prices",
+                feature4_desc: "Fair and suitable prices with high quality",
+                feature5_title: "Excellent Service",
+                feature5_desc: "A professional team ready to help at any time",
+                feature6_title: "Latest Fashion",
+                feature6_desc: "We always keep up with the latest global fashion trends",
+                products_title: "Our Featured Products",
+                product_name: "Evening Dress",
+                contact_title: "Contact Us",
+                contact_address_title: "Address",
+                contact_address: "Iraq, Erbil, Langa Bazaar",
+                contact_email_title: "Email",
+                contact_hours_title: "Working Hours",
+                contact_hours: "Saturday - Thursday: 9:00 AM - 9:00 PM"
+            }
+        };
+
+        // Current language
+        let currentLang = 'ku';
+
+        // Function to change language
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Update body direction
+            if (lang === 'en') {
+                document.body.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('lang', 'en');
+            } else {
+                document.body.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('lang', lang);
+            }
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Save language preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Language switcher event listeners
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                changeLanguage(lang);
+            });
+        });
+
+        // Load saved language preference
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang) {
+            changeLanguage(savedLang);
+        }
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -547,17 +782,6 @@
                 header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
                 header.style.backdropFilter = 'none';
             }
-        });
-
-        // Add loading animation for buttons
-        document.querySelectorAll('.btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const originalText = this.innerHTML;
-                this.innerHTML = '<span class="loading"></span> Loading...';
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                }, 2000);
-            });
         });
 
         // Add intersection observer for animations
